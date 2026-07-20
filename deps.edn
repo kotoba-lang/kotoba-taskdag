@@ -1,0 +1,17 @@
+{:paths ["src"]
+ ;; Only needed for task-graph.langgraph (optional in-process StateGraph
+ ;; wrapper). task-graph.core has zero deps.
+ :deps {io.github.kotoba-lang/langgraph
+        {:git/sha "6daa48e7bf86acc13d44804104fced4938530fd2"}}
+ :aliases
+ {:test {:extra-paths ["test"]
+         :extra-deps {io.github.cognitect-labs/test-runner
+                      {:git/tag "v0.5.1" :git/sha "dfb30dd"}}
+         :main-opts ["-m" "cognitect.test-runner"]
+         :exec-fn cognitect.test-runner.api/test}
+  ;; local checkout for workspace development (orgs/kotoba-lang/*)
+  :dev {:override-deps {io.github.kotoba-lang/langgraph
+                        {:local/root "../langgraph"}}}
+  :lint {:replace-deps {clj-kondo/clj-kondo {:mvn/version "2024.11.14"}}
+         :main-opts ["-m" "clj-kondo.main" "--lint" "src" "test"
+                     "--fail-level" "error"]}}}
