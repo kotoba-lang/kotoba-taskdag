@@ -48,5 +48,5 @@ lifecycle rather than a new gate.
 ## Test
 
 ```sh
-clojure -M:test
+kbb -M:test
 ```
